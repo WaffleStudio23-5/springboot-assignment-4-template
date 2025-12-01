@@ -26,7 +26,7 @@ class PostLikeService(
 
         val newLike = PostLike(userId = user.id!!, postId = postId)
         postLikeRepository.save(newLike)
-        post.likeCount++;
+        post.likeCount++
         postRepository.save(post)
     }
 
@@ -38,7 +38,7 @@ class PostLikeService(
         val post = postRepository.findByIdWithLock(postId) ?: throw PostNotFoundException()
         val deleted = postLikeRepository.deleteByUserIdAndPostId(user.id!!, postId)
         if (deleted == 1L) {
-            post.likeCount--;
+            post.likeCount--
         }
         postRepository.save(post)
     }
