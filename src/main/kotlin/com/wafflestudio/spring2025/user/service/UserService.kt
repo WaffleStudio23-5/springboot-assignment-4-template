@@ -16,7 +16,8 @@ import org.springframework.stereotype.Service
 class UserService(
     private val userRepository: UserRepository,
     private val jwtTokenProvider: JwtTokenProvider,
-    private val redisTemplate: StringRedisTemplate
+    private val redisTemplate: StringRedisTemplate,
+    private val jwtBlacklistService: JwtBlacklistService,
 ) {
     fun register(
         username: String,
@@ -58,8 +59,8 @@ class UserService(
 
     fun logout(
         user: User,
-        token: String
+        token: String,
     ) {
-        TODO()
+        jwtBlacklistService.addToBlacklist(token)
     }
 }
